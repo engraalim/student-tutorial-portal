@@ -1,12 +1,11 @@
-// Rename this file to firebase-config.js and paste your Firebase Web App config.
-// This config is not a password. Firebase security must be enforced by Firestore rules.
-export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.firebasestorage.app",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+const firebaseConfig = {
+  apiKey: "AIzaSyC3kJZMHhdnumtlfDD8ETcYgbPpRRMDNmE",
+  authDomain: "student-tutorial-portal.firebaseapp.com",
+  projectId: "student-tutorial-portal",
+  storageBucket: "student-tutorial-portal.firebasestorage.app",
+  messagingSenderId: "484360386573",
+  appId: "1:484360386573:web:fd5288d059f9348099fd44",
+  measurementId: "G-1PBEWGRW9D"
 };
 
 // Put your own Firebase Authentication UID here after creating your admin account.
