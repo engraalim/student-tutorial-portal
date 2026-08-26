@@ -7,7 +7,7 @@ service cloud.firestore {
     // Replace this UID with the Firebase Authentication UID of the tutor/admin.
     function isAdmin() {
       return request.auth != null
-        && request.auth.uid == "YOUR_ADMIN_FIREBASE_UID";
+        && request.auth.uid == "j2dKbWefhlay5ABzvUsXJDwr8ZX2";
     }
 
     function signedIn() {
