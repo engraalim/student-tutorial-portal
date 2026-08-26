@@ -10,4 +10,4 @@ const firebaseConfig = {
 
 // Put your own Firebase Authentication UID here after creating your admin account.
 // The Firestore rules must contain the same UID.
-export const ADMIN_UID = "YOUR_ADMIN_FIREBASE_UID";
+export const ADMIN_UID = "j2dKbWefhlay5ABzvUsXJDwr8ZX2";
