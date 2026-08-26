@@ -1,0 +1,9 @@
+# Never commit private/local data
+.DS_Store
+*.log
+node_modules/
+.env
+.env.*
+serviceAccount*.json
+private/
+real_marks/
