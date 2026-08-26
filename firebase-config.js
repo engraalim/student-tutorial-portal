@@ -1,4 +1,4 @@
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyC3kJZMHhdnumtlfDD8ETcYgbPpRRMDNmE",
   authDomain: "student-tutorial-portal.firebaseapp.com",
   projectId: "student-tutorial-portal",
@@ -8,6 +8,6 @@ const firebaseConfig = {
   measurementId: "G-1PBEWGRW9D"
 };
 
-// Put your own Firebase Authentication UID here after creating your admin account.
-// The Firestore rules must contain the same UID.
+// Admin Firebase Authentication UID.
+// The Firestore security rules must contain this same UID.
 export const ADMIN_UID = "j2dKbWefhlay5ABzvUsXJDwr8ZX2";
