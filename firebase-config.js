@@ -8,6 +8,4 @@ export const firebaseConfig = {
   measurementId: "G-1PBEWGRW9D"
 };
 
-// Admin Firebase Authentication UID.
-// The Firestore security rules must contain this same UID.
 export const ADMIN_UID = "j2dKbWefhlay5ABzvUsXJDwr8ZX2";

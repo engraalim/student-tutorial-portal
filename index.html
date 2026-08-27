@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student Tutorial Portal" />
   <title>Student Tutorial Portal</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -10,101 +11,128 @@
   <header class="topbar">
     <div>
       <h1>Student Tutorial Portal</h1>
-      <p>Secure access to tutorial marks and course notices</p>
+      <p>Secure tutorial marks, notices and student access</p>
     </div>
-    <button id="logoutBtn" class="secondary hidden">Sign out</button>
+    <div class="header-actions">
+      <a class="home-link" href="https://engraalim.github.io/">Home</a>
+      <button id="logoutBtn" class="secondary hidden">Sign out</button>
+    </div>
   </header>
 
   <main class="container">
     <section id="authSection" class="card auth-card">
-      <h2>Sign in</h2>
-      <p class="muted">Use the email address registered by your tutor.</p>
-      <form id="loginForm">
-        <label>Email
-          <input id="email" type="email" required placeholder="student@university.edu.au" />
-        </label>
-        <label>Password
-          <input id="password" type="password" required minlength="6" />
-        </label>
-        <button type="submit">Sign in</button>
-      </form>
-      <button id="resetPasswordBtn" class="link-button">Forgot password?</button>
-      <p id="authMessage" class="message"></p>
+      <div class="auth-tabs">
+        <button id="showLoginBtn" class="tab active" type="button">Sign in</button>
+        <button id="showRegisterBtn" class="tab" type="button">Register</button>
+      </div>
+
+      <div id="loginPanel">
+        <h2>Sign in</h2>
+        <p class="muted">Use the institutional email registered for this portal.</p>
+        <form id="loginForm">
+          <label>Email<input id="email" type="email" required placeholder="student@university.edu.au" /></label>
+          <label>Password<input id="password" type="password" required minlength="6" /></label>
+          <button type="submit">Sign in</button>
+        </form>
+        <button id="resetPasswordBtn" class="link-button" type="button">Forgot password?</button>
+        <p id="authMessage" class="message"></p>
+      </div>
+
+      <div id="registerPanel" class="hidden">
+        <h2>Student registration</h2>
+        <p class="muted">Registration is limited to institutional academic email addresses ending in <strong>.edu</strong>, <strong>.ac</strong>, <strong>.edu.xx</strong> or <strong>.ac.xx</strong>. Your account remains pending until approved by the tutor.</p>
+        <form id="registerForm">
+          <label>Student ID<input id="registerStudentId" required /></label>
+          <label>Full name<input id="registerName" required /></label>
+          <label>Institutional email<input id="registerEmail" type="email" required placeholder="name@university.edu.au" /></label>
+          <label>Course<input id="registerCourse" value="EEE XXXX" required /></label>
+          <label>Password<input id="registerPassword" type="password" required minlength="8" /></label>
+          <label>Confirm password<input id="registerPassword2" type="password" required minlength="8" /></label>
+          <button type="submit">Submit registration</button>
+        </form>
+        <p id="registerMessage" class="message"></p>
+      </div>
+    </section>
+
+    <section id="pendingSection" class="card status-card hidden">
+      <h2 id="pendingTitle">Account awaiting approval</h2>
+      <p id="pendingText"></p>
+      <div id="verifyEmailBox" class="hidden">
+        <p>Your institutional email has not yet been verified. Please use the verification email sent by Firebase.</p>
+        <div class="button-row">
+          <button id="resendVerificationBtn" type="button">Resend verification email</button>
+          <button id="refreshVerificationBtn" class="secondary-dark" type="button">I have verified my email</button>
+        </div>
+      </div>
     </section>
 
     <section id="studentDashboard" class="hidden">
       <div class="grid two">
-        <article class="card">
-          <h2>My details</h2>
-          <div id="studentProfile"></div>
-        </article>
-
-        <article class="card">
-          <h2>Course notices</h2>
-          <div id="studentNotices"></div>
-        </article>
+        <article class="card"><h2>My details</h2><div id="studentProfile"></div></article>
+        <article class="card"><h2>Course notices</h2><div id="studentNotices"></div></article>
       </div>
 
       <article class="card">
         <h2>My tutorial marks</h2>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>Assessment</th><th>Mark</th><th>Maximum</th><th>Feedback</th></tr>
-            </thead>
+            <thead><tr><th>Assessment</th><th>Mark</th><th>Maximum</th><th>Feedback</th></tr></thead>
             <tbody id="studentMarksBody"></tbody>
           </table>
         </div>
+      </article>
+
+      <article class="card">
+        <h2>Account settings</h2>
+        <p class="muted">Change your password using your current password.</p>
+        <form id="changePasswordForm" class="compact-form">
+          <label>Current password<input id="currentPassword" type="password" required /></label>
+          <label>New password<input id="newPassword" type="password" required minlength="8" /></label>
+          <label>Confirm new password<input id="newPassword2" type="password" required minlength="8" /></label>
+          <button type="submit">Change password</button>
+        </form>
+        <p id="passwordMessage" class="message"></p>
       </article>
     </section>
 
     <section id="adminDashboard" class="hidden">
       <div class="admin-heading">
-        <div>
-          <h2>Admin dashboard</h2>
-          <p class="muted">Manage students, marks and notices.</p>
-        </div>
+        <h2>Admin Portal</h2>
+        <p class="muted">Approve registrations, create student accounts, manage marks and publish notices.</p>
       </div>
+
+      <article class="card">
+        <h3>Pending registrations</h3>
+        <p class="muted">A pending account cannot access tutorial marks until you approve it.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Student ID</th><th>Name</th><th>Email</th><th>Course</th><th>Action</th></tr></thead>
+            <tbody id="pendingStudentsBody"></tbody>
+          </table>
+        </div>
+      </article>
 
       <div class="grid two">
         <article class="card">
-          <h3>Add / update student</h3>
-          <form id="studentForm">
-            <label>Firebase UID
-              <input id="studentUid" required placeholder="Paste student's Firebase UID" />
-            </label>
-            <label>Student ID
-              <input id="studentId" required />
-            </label>
-            <label>Name
-              <input id="studentName" required />
-            </label>
-            <label>Email
-              <input id="studentEmail" type="email" required />
-            </label>
-            <label>Course
-              <input id="studentCourse" value="EEE XXXX" required />
-            </label>
-            <button type="submit">Save student</button>
+          <h3>Create approved student account</h3>
+          <p class="muted">Creates the account, approves it immediately, and sends a Firebase password-setup/reset email.</p>
+          <form id="adminCreateStudentForm">
+            <label>Student ID<input id="adminStudentId" required /></label>
+            <label>Name<input id="adminStudentName" required /></label>
+            <label>Institutional email<input id="adminStudentEmail" type="email" required placeholder="name@university.edu.au" /></label>
+            <label>Course<input id="adminStudentCourse" value="EEE XXXX" required /></label>
+            <button type="submit">Create account & send setup email</button>
           </form>
+          <p id="adminCreateMessage" class="message"></p>
         </article>
 
         <article class="card">
           <h3>Publish notice</h3>
           <form id="noticeForm">
-            <label>Title
-              <input id="noticeTitle" required />
-            </label>
-            <label>Message
-              <textarea id="noticeMessage" rows="5" required></textarea>
-            </label>
-            <label class="checkbox">
-              <input id="emailNotice" type="checkbox" />
-              Also trigger email notification
-            </label>
+            <label>Title<input id="noticeTitle" required /></label>
+            <label>Message<textarea id="noticeMessage" rows="5" required></textarea></label>
             <button type="submit">Publish notice</button>
           </form>
-          <p class="muted small">Email requires the optional Cloud Function in the <code>functions</code> folder.</p>
         </article>
       </div>
 
@@ -112,33 +140,25 @@
         <h3>Import marks from CSV</h3>
         <p class="muted">CSV columns: <code>uid,assessment,mark,max,feedback</code></p>
         <input id="csvInput" type="file" accept=".csv,text/csv" />
-        <button id="importCsvBtn">Import CSV</button>
+        <button id="importCsvBtn" type="button">Import CSV</button>
         <p id="csvMessage" class="message"></p>
       </article>
 
       <article class="card">
-        <h3>Students</h3>
+        <h3>All students</h3>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr><th>Student ID</th><th>Name</th><th>Email</th><th>Course</th></tr>
-            </thead>
+            <thead><tr><th>UID</th><th>Student ID</th><th>Name</th><th>Email</th><th>Course</th><th>Status</th></tr></thead>
             <tbody id="adminStudentsBody"></tbody>
           </table>
         </div>
       </article>
 
-      <article class="card">
-        <h3>Recent notices</h3>
-        <div id="adminNotices"></div>
-      </article>
+      <article class="card"><h3>Recent notices</h3><div id="adminNotices"></div></article>
     </section>
   </main>
 
-  <footer>
-    <p>Student Portal · Secure data access through Firebase Authentication and Firestore Security Rules.</p>
-  </footer>
-
+  <footer><p>Student Portal · Firebase Authentication + Firestore security rules</p></footer>
   <script type="module" src="app.js"></script>
 </body>
 </html>

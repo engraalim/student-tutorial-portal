@@ -3,36 +3,65 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // IMPORTANT:
-    // Replace this UID with the Firebase Authentication UID of the tutor/admin.
-    function isAdmin() {
-      return request.auth != null
-        && request.auth.uid == "j2dKbWefhlay5ABzvUsXJDwr8ZX2";
-    }
-
     function signedIn() {
       return request.auth != null;
     }
 
-    // Student profile document ID MUST equal the student's Firebase Auth UID.
+    function isAdmin() {
+      return signedIn()
+        && request.auth.uid == "j2dKbWefhlay5ABzvUsXJDwr8ZX2";
+    }
+
+    function hasAuthEmail() {
+      return signedIn() && request.auth.token.email != null;
+    }
+
+    function isAcademicEmail(email) {
+      return email != null
+        && email.lower().matches('^[^@]+@[^@]+[.](edu|ac)([.][a-z]{2})?$');
+    }
+
+    function isApprovedStudent(studentUid) {
+      return signedIn()
+        && request.auth.uid == studentUid
+        && request.auth.token.email_verified == true
+        && isAcademicEmail(request.auth.token.email)
+        && get(/databases/$(database)/documents/students/$(studentUid)).data.status == "approved";
+    }
+
     match /students/{studentUid} {
-      allow read: if signedIn() && (request.auth.uid == studentUid || isAdmin());
-      allow create, update, delete: if isAdmin();
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == studentUid);
+
+      allow create: if signedIn()
+        && request.auth.uid == studentUid
+        && hasAuthEmail()
+        && isAcademicEmail(request.auth.token.email)
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.status == "pending"
+        && request.resource.data.registrationMethod == "self"
+        && request.resource.data.keys().hasOnly([
+          "studentId", "name", "email", "course", "status",
+          "registrationMethod", "createdAt", "approvedAt"
+        ]);
+
+      allow update, delete: if isAdmin();
 
       match /marks/{markId} {
-        allow read: if signedIn() && (request.auth.uid == studentUid || isAdmin());
+        allow read: if isAdmin() || isApprovedStudent(studentUid);
         allow create, update, delete: if isAdmin();
       }
     }
 
-    // All signed-in students can read course notices.
-    // Only the admin can create/change/delete them.
     match /notices/{noticeId} {
-      allow read: if signedIn();
+      allow read: if isAdmin()
+        || (signedIn()
+          && request.auth.token.email_verified == true
+          && isAcademicEmail(request.auth.token.email)
+          && get(/databases/$(database)/documents/students/$(request.auth.uid)).data.status == "approved");
+
       allow create, update, delete: if isAdmin();
     }
 
-    // Default deny.
     match /{document=**} {
       allow read, write: if false;
     }
