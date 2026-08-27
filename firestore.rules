@@ -13,25 +13,68 @@ service cloud.firestore {
     }
 
     function hasAuthEmail() {
-      return signedIn() && request.auth.token.email != null;
+      return signedIn()
+        && request.auth.token.email != null;
     }
 
+    /*
+      Accepted examples:
+      user@mit.edu
+      user@college.ac
+      user@uow.edu.au
+      user@ru.ac.bd
+      user@cam.ac.uk
+    */
     function isAcademicEmail(email) {
       return email != null
-        && email.lower().matches('^[^@]+@[^@]+[.](edu|ac)([.][a-z]{2})?$');
+        && email.matches(
+          '^[^@]+@[^@]+[.](edu|ac)([.][A-Za-z]{2})?$'
+        );
+    }
+
+    function studentExists(studentUid) {
+      return exists(
+        /databases/$(database)/documents/students/$(studentUid)
+      );
     }
 
     function isApprovedStudent(studentUid) {
       return signedIn()
         && request.auth.uid == studentUid
+        && request.auth.token.email != null
         && request.auth.token.email_verified == true
         && isAcademicEmail(request.auth.token.email)
-        && get(/databases/$(database)/documents/students/$(studentUid)).data.status == "approved";
+        && studentExists(studentUid)
+        && get(
+          /databases/$(database)/documents/students/$(studentUid)
+        ).data.status == "approved";
     }
 
-    match /students/{studentUid} {
-      allow read: if isAdmin() || (signedIn() && request.auth.uid == studentUid);
 
+    /* =====================================================
+       STUDENT PROFILES
+    ====================================================== */
+
+    match /students/{studentUid} {
+
+      /*
+        Tutor/admin can read all profiles.
+        Student can read only their own profile.
+      */
+      allow read: if isAdmin()
+        || (
+          signedIn()
+          && request.auth.uid == studentUid
+        );
+
+
+      /*
+        Self-registration:
+        - user must create their OWN UID document
+        - Authentication email must be academic
+        - profile email must equal Authentication email
+        - initial status must be pending
+      */
       allow create: if signedIn()
         && request.auth.uid == studentUid
         && hasAuthEmail()
@@ -40,27 +83,64 @@ service cloud.firestore {
         && request.resource.data.status == "pending"
         && request.resource.data.registrationMethod == "self"
         && request.resource.data.keys().hasOnly([
-          "studentId", "name", "email", "course", "status",
-          "registrationMethod", "createdAt", "approvedAt"
+          "studentId",
+          "name",
+          "email",
+          "course",
+          "status",
+          "registrationMethod",
+          "createdAt",
+          "approvedAt"
         ]);
 
+
+      /*
+        Only admin can change status/profile after creation.
+      */
       allow update, delete: if isAdmin();
 
+
+      /* ===================================================
+         MARKS
+      ==================================================== */
+
       match /marks/{markId} {
-        allow read: if isAdmin() || isApprovedStudent(studentUid);
-        allow create, update, delete: if isAdmin();
+
+        allow read: if isAdmin()
+          || isApprovedStudent(studentUid);
+
+        allow create, update, delete:
+          if isAdmin();
       }
     }
 
+
+    /* =====================================================
+       NOTICES
+    ====================================================== */
+
     match /notices/{noticeId} {
+
       allow read: if isAdmin()
-        || (signedIn()
+        || (
+          signedIn()
+          && request.auth.token.email != null
           && request.auth.token.email_verified == true
           && isAcademicEmail(request.auth.token.email)
-          && get(/databases/$(database)/documents/students/$(request.auth.uid)).data.status == "approved");
+          && studentExists(request.auth.uid)
+          && get(
+            /databases/$(database)/documents/students/$(request.auth.uid)
+          ).data.status == "approved"
+        );
 
-      allow create, update, delete: if isAdmin();
+      allow create, update, delete:
+        if isAdmin();
     }
+
+
+    /* =====================================================
+       DEFAULT DENY
+    ====================================================== */
 
     match /{document=**} {
       allow read, write: if false;

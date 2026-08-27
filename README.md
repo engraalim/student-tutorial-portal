@@ -1,37 +1,51 @@
-# Student Tutorial Portal v2
+# Corrected Student Tutorial Portal
 
-## New features
-- Student self-registration
-- Tutor approval required before marks access
-- Academic-email restriction: `.edu`, `.ac`, `.edu.xx`, `.ac.xx`
-- Email verification
-- Tutor-created approved student accounts
-- Firebase password-setup/reset email
+This package fixes the JavaScript startup problem and keeps:
+
+- Sign in
+- Register tab
+- Self-registration
+- `.edu`, `.ac`, `.edu.xx`, `.ac.xx` restriction
+- Firebase email verification
+- Tutor approval / rejection
+- Tutor-created approved accounts
+- Password setup/reset email
 - Student password change
-- Pending / approved / rejected / disabled status
-- Existing marks, CSV import and notices
+- Student marks
+- Notices
+- CSV mark import
 
-## Accepted examples
-- student@mit.edu
-- student@college.ac
-- student@uow.edu.au
-- student@ru.ac.bd
-- student@cam.ac.uk
+## Replace these files in GitHub
 
-Rejected examples include Gmail, Yahoo, company.com, and fake.edu.com.
+Replace the files in your `student-tutorial-portal` repository with:
 
-## Upgrade
-1. Replace `index.html`, `styles.css`, `app.js`, `firebase-config.js`, and `firestore.rules` in the GitHub repo.
-2. Firebase Console → Firestore Database → Rules → paste the new `firestore.rules` → Publish.
-3. Firebase Authentication → Email/Password must remain enabled.
-4. For each EXISTING student Firestore document, add `status = "approved"` before testing.
-5. Existing students must verify their email before marks access under the new rules.
+- `index.html`
+- `app.js`
+- `firebase-config.js`
+- `styles.css`
+- `firestore.rules`
 
-## Tutor-created account
-Admin enters student ID, name, institutional email, course. The app creates a separate Firebase Auth account without logging the tutor out, saves an approved profile, and asks Firebase to send both an email-verification message and a password-reset/setup email. The student verifies the institutional email and then chooses their own password.
+## Very important
 
-## Self-registration
-Student registers with institutional email and password. Firestore profile is created with `status = "pending"`. Firebase sends a verification email. Marks are inaccessible until the tutor approves the profile AND the email is verified.
+Updating `firestore.rules` in GitHub does NOT update the live Firebase rules.
 
-## Security note
-Firestore rules strictly enforce academic email + approval for portal data access. Because Firebase Email/Password sign-up is a public client API when enabled, someone bypassing your frontend could technically create an unused Firebase Auth account with another domain; however, that account cannot create an accepted student profile or read portal data under these rules. Preventing even raw Auth-account creation by nonacademic domains requires server-side / Identity Platform enforcement.
+After uploading the files:
+
+1. Firebase Console
+2. Firestore Database
+3. Rules
+4. Replace the live rules with `firestore.rules`
+5. Publish
+
+## After GitHub deployment
+
+Hard-refresh:
+
+- Windows: Ctrl + F5
+- Mac: Cmd + Shift + R
+
+The browser Console should show:
+
+`Student Tutorial Portal app.js loaded successfully.`
+
+If this line appears, `app.js` is running.
