@@ -86,12 +86,11 @@ $("registerForm").addEventListener("submit", async (e) => {
       studentId, name, email, course, status: "pending", registrationMethod: "self", createdAt: serverTimestamp(), approvedAt: null
     });
     await sendEmailVerification(createdUser);
-    setMessage($("registerMessage"), "Registration submitted. A verification email has been sent. Your account will remain pending until approved by the tutor.", true);
-  } catch (err) {
-    if (createdUser) { try { await deleteUser(createdUser); } catch (_) {} }
-    setMessage($("registerMessage"), friendlyAuthError(err));
-  }
-});
+    setMessage(
+  $("registerMessage"),
+  "Registration submitted. A verification email has been sent. Please check your inbox and, if you do not see it, check your Spam or Junk folder as well. Your account will remain pending until approved by the tutor.",
+  true
+);
 
 onAuthStateChanged(auth, async (user) => {
   hideAll();
