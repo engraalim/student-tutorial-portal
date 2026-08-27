@@ -109,7 +109,7 @@ onAuthStateChanged(auth, async (user) => {
     if (!isAcademicEmail(profile.email || user.email || "")) return showStatus("Institutional email required", "This portal accepts only academic email addresses ending in .edu, .ac, .edu.xx or .ac.xx.", false);
     if (profile.status !== "approved") {
       const title = profile.status === "rejected" ? "Registration not approved" : profile.status === "disabled" ? "Account disabled" : "Account awaiting approval";
-      const text = profile.status === "rejected" ? "Your registration has not been approved. Please contact the tutor if you believe this is an error." : profile.status === "disabled" ? "This account has been disabled. Please contact the tutor." : "Your registration has been received and is waiting for tutor approval.";
+      const text = profile.status === "rejected" ? "Your registration has been received and is waiting for tutor approval. Please also verify your institutional email. If you do not see the verification email, check your Spam or Junk folder.";" : profile.status === "disabled" ? "This account has been disabled. Please contact the tutor." : "Your registration has been received and is waiting for tutor approval.";
       return showStatus(title, text, !user.emailVerified);
     }
     if (!user.emailVerified) return showStatus("Verify your institutional email", "Your account is approved, but you must verify your institutional email before accessing marks.", true);
