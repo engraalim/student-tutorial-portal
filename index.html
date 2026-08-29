@@ -1,59 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Student Tutorial Portal" />
-  <title>Student Tutorial Portal</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <meta
+    name="description"
+    content="Student Tutorial Portal"
+  />
+
+  <title>
+    Student Tutorial Portal
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="./styles.css"
+  />
+
 </head>
+
 
 <body>
 
+
+  <!-- =====================================================
+       TOP BAR
+  ====================================================== -->
+
   <header class="topbar">
+
     <div>
-      <h1>Student Tutorial Portal</h1>
-      <p>Secure tutorial marks, notices and student access</p>
+
+      <h1>
+        Student Tutorial Portal
+      </h1>
+
+      <p>
+        Secure tutorial marks, notices and student access
+      </p>
+
     </div>
 
+
     <div class="header-actions">
-      <a class="home-link" href="https://engraalim.github.io/">Home</a>
-      <button id="logoutBtn" class="secondary hidden" type="button">Sign out</button>
+
+      <a
+        class="home-link"
+        href="https://engraalim.github.io/"
+      >
+        Home
+      </a>
+
+
+      <button
+        id="logoutBtn"
+        class="secondary hidden"
+        type="button"
+      >
+        Sign out
+      </button>
+
     </div>
+
   </header>
 
 
+
+  <!-- =====================================================
+       MAIN CONTENT
+  ====================================================== -->
+
   <main class="container">
 
-    <!-- =====================================================
+
+    <!-- ===================================================
          LOGIN / REGISTRATION
-    ====================================================== -->
-    <section id="authSection" class="card auth-card">
+    ==================================================== -->
+
+    <section
+      id="authSection"
+      class="card auth-card"
+    >
+
+
+      <!-- LOGIN / REGISTER TABS -->
 
       <div class="auth-tabs">
-        <button id="showLoginBtn" class="tab active" type="button">
+
+
+        <button
+          id="showLoginBtn"
+          class="tab active"
+          type="button"
+        >
           Sign in
         </button>
 
-        <button id="showRegisterBtn" class="tab" type="button">
+
+        <button
+          id="showRegisterBtn"
+          class="tab"
+          type="button"
+        >
           Register
         </button>
+
+
       </div>
 
 
-      <!-- LOGIN -->
+
+      <!-- =================================================
+           LOGIN PANEL
+      ================================================== -->
+
       <div id="loginPanel">
 
-        <h2>Sign in</h2>
+
+        <h2>
+          Sign in
+        </h2>
+
 
         <p class="muted">
+
           Use the institutional email registered for this portal.
+
         </p>
+
+
 
         <form id="loginForm">
 
+
           <label>
+
             Email
+
             <input
               id="email"
               type="email"
@@ -61,10 +151,15 @@
               autocomplete="email"
               placeholder="student@university.ac.bd"
             />
+
           </label>
 
+
+
           <label>
+
             Password
+
             <input
               id="password"
               type="password"
@@ -72,57 +167,146 @@
               minlength="6"
               autocomplete="current-password"
             />
+
           </label>
 
-          <button type="submit">Sign in</button>
+
+
+          <button type="submit">
+
+            Sign in
+
+          </button>
+
 
         </form>
+
+
 
         <button
           id="resetPasswordBtn"
           class="link-button"
           type="button"
         >
+
           Forgot password?
+
         </button>
 
-        <p id="authMessage" class="message"></p>
+
+        <p
+          id="authMessage"
+          class="message"
+        ></p>
+
 
       </div>
 
 
-      <!-- REGISTRATION -->
-      <div id="registerPanel" class="hidden">
 
-        <h2>Student registration</h2>
+      <!-- =================================================
+           REGISTRATION PANEL
+      ================================================== -->
+
+      <div
+        id="registerPanel"
+        class="hidden"
+      >
+
+
+        <h2>
+          Student registration
+        </h2>
+
+
 
         <p class="muted">
-          Registration is limited to institutional academic email addresses
-          ending in <strong>.edu</strong>, <strong>.ac</strong>,
-          <strong>.edu.xx</strong> or <strong>.ac.xx</strong>.
+
+          Registration is limited to institutional academic email
+          addresses ending in
+
+          <strong>.edu</strong>,
+
+          <strong>.ac</strong>,
+
+          <strong>.edu.xx</strong>
+
+          or
+
+          <strong>.ac.xx</strong>.
+
           Your account remains pending until approved by the tutor.
 
-          <br><br>
-
-<strong style="color: red; display: block;">
-NB: This website is currently a demo version developed for learning and testing the student registration system. Students are advised not to use it for any official purpose. Students from Bangladesh may register only for testing or demonstration purposes. Please be aware that privacy and data protection cannot be guaranteed in this demo version.
-</strong>
         </p>
+
+
+
+        <!-- =================================================
+             DEMO NOTICE
+        ================================================== -->
+
+        <div
+          style="
+            margin-top: 28px;
+            margin-bottom: 24px;
+            color: red;
+            line-height: 1.6;
+          "
+        >
+
+          <strong>
+
+            NB: This website is currently a demo version developed
+            for learning and testing the student registration system.
+            Students are advised not to use it for any official purpose.
+            Bangladeshi University Students may register only for testing
+            or demonstration purposes. Please be aware that privacy and
+            data protection cannot be guaranteed in this demo version.
+
+          </strong>
+
+        </div>
+
+
+
+        <!-- =================================================
+             REGISTRATION FORM
+        ================================================== -->
 
         <form id="registerForm">
 
+
           <label>
+
             Student ID
-            <input id="registerStudentId" required />
+
+            <input
+              id="registerStudentId"
+              required
+            />
+
           </label>
 
+
+
           <label>
+
             Full name
-            <input id="registerName" required autocomplete="name" />
+
+            <input
+              id="registerName"
+              required
+              autocomplete="name"
+            />
+
           </label>
 
+
+
           <label>
+
             Institutional email
+
             <input
               id="registerEmail"
               type="email"
@@ -130,15 +314,29 @@ NB: This website is currently a demo version developed for learning and testing 
               autocomplete="email"
               placeholder="name@university.ac.bd"
             />
+
           </label>
 
+
+
           <label>
+
             Course
-            <input id="registerCourse" value="EEE XXXX" required />
+
+            <input
+              id="registerCourse"
+              value="EEE XXXX"
+              required
+            />
+
           </label>
 
+
+
           <label>
+
             Password
+
             <input
               id="registerPassword"
               type="password"
@@ -146,10 +344,15 @@ NB: This website is currently a demo version developed for learning and testing 
               minlength="8"
               autocomplete="new-password"
             />
+
           </label>
 
+
+
           <label>
+
             Confirm password
+
             <input
               id="registerPassword2"
               type="password"
@@ -157,129 +360,262 @@ NB: This website is currently a demo version developed for learning and testing 
               minlength="8"
               autocomplete="new-password"
             />
+
           </label>
 
+
+
           <button type="submit">
+
             Submit registration
+
           </button>
+
 
         </form>
 
-        <p id="registerMessage" class="message"></p>
+
+
+        <p
+          id="registerMessage"
+          class="message"
+        ></p>
+
 
       </div>
+
 
     </section>
 
 
-    <!-- =====================================================
+
+    <!-- ===================================================
          PENDING / EMAIL VERIFICATION / REJECTED
-    ====================================================== -->
-    <section id="pendingSection" class="card status-card hidden">
+    ==================================================== -->
+
+    <section
+      id="pendingSection"
+      class="card status-card hidden"
+    >
+
 
       <h2 id="pendingTitle">
+
         Account awaiting approval
+
       </h2>
+
+
 
       <p id="pendingText"></p>
 
-      <div id="verifyEmailBox" class="hidden">
+
+
+      <div
+        id="verifyEmailBox"
+        class="hidden"
+      >
+
 
         <p>
+
           Your institutional email has not yet been verified.
           Please use the verification email sent by Firebase.
           If you cannot find it, please check your Spam or Junk folder.
+
         </p>
+
+
 
         <div class="button-row">
 
-          <button id="resendVerificationBtn" type="button">
+
+          <button
+            id="resendVerificationBtn"
+            type="button"
+          >
+
             Resend verification email
+
           </button>
+
+
 
           <button
             id="refreshVerificationBtn"
             class="secondary-dark"
             type="button"
           >
+
             I have verified my email
+
           </button>
+
 
         </div>
 
+
       </div>
+
 
     </section>
 
 
-    <!-- =====================================================
+
+    <!-- ===================================================
          STUDENT DASHBOARD
-    ====================================================== -->
-    <section id="studentDashboard" class="hidden">
+    ==================================================== -->
+
+    <section
+      id="studentDashboard"
+      class="hidden"
+    >
+
 
       <div class="grid two">
 
-        <article class="card">
-          <h2>My details</h2>
-          <div id="studentProfile"></div>
-        </article>
+
+        <!-- STUDENT PROFILE -->
 
         <article class="card">
-          <h2>Course notices</h2>
-          <div id="studentNotices"></div>
+
+
+          <h2>
+            My details
+          </h2>
+
+
+          <div id="studentProfile"></div>
+
+
         </article>
+
+
+
+        <!-- STUDENT NOTICES -->
+
+        <article class="card">
+
+
+          <h2>
+            Course notices
+          </h2>
+
+
+          <div id="studentNotices"></div>
+
+
+        </article>
+
 
       </div>
 
 
+
+      <!-- =================================================
+           STUDENT MARKS
+      ================================================== -->
+
       <article class="card">
 
-        <h2>My tutorial marks</h2>
+
+        <h2>
+          My tutorial marks
+        </h2>
+
+
 
         <div class="table-wrap">
 
+
           <table>
 
+
             <thead>
+
               <tr>
-                <th>Assessment</th>
-                <th>Mark</th>
-                <th>Maximum</th>
-                <th>Feedback</th>
+
+                <th>
+                  Assessment
+                </th>
+
+                <th>
+                  Mark
+                </th>
+
+                <th>
+                  Maximum
+                </th>
+
+                <th>
+                  Feedback
+                </th>
+
               </tr>
+
             </thead>
+
+
 
             <tbody id="studentMarksBody"></tbody>
 
+
           </table>
 
+
         </div>
+
 
       </article>
 
 
+
+      <!-- =================================================
+           ACCOUNT SETTINGS
+      ================================================== -->
+
       <article class="card">
 
-        <h2>Account settings</h2>
+
+        <h2>
+          Account settings
+        </h2>
+
+
 
         <p class="muted">
+
           Change your password using your current password.
+
         </p>
 
-        <form id="changePasswordForm" class="compact-form">
+
+
+        <form
+          id="changePasswordForm"
+          class="compact-form"
+        >
+
 
           <label>
+
             Current password
+
             <input
               id="currentPassword"
               type="password"
               required
               autocomplete="current-password"
             />
+
           </label>
 
+
+
           <label>
+
             New password
+
             <input
               id="newPassword"
               type="password"
@@ -287,10 +623,15 @@ NB: This website is currently a demo version developed for learning and testing 
               minlength="8"
               autocomplete="new-password"
             />
+
           </label>
 
+
+
           <label>
+
             Confirm new password
+
             <input
               id="newPassword2"
               type="password"
@@ -298,163 +639,327 @@ NB: This website is currently a demo version developed for learning and testing 
               minlength="8"
               autocomplete="new-password"
             />
+
           </label>
 
+
+
           <button type="submit">
+
             Change password
+
           </button>
+
 
         </form>
 
-        <p id="passwordMessage" class="message"></p>
+
+
+        <p
+          id="passwordMessage"
+          class="message"
+        ></p>
+
 
       </article>
+
 
     </section>
 
 
-    <!-- =====================================================
+
+    <!-- ===================================================
          ADMIN DASHBOARD
-    ====================================================== -->
-    <section id="adminDashboard" class="hidden">
+    ==================================================== -->
+
+    <section
+      id="adminDashboard"
+      class="hidden"
+    >
+
 
       <div class="admin-heading">
-        <h2>Admin Portal</h2>
+
+
+        <h2>
+          Admin Portal
+        </h2>
+
+
         <p class="muted">
+
           Approve registrations, create student accounts,
           manage marks and publish notices.
+
         </p>
+
+
       </div>
 
 
-      <!-- PENDING REGISTRATIONS -->
+
+      <!-- =================================================
+           PENDING REGISTRATIONS
+      ================================================== -->
+
       <article class="card">
 
-        <h3>Pending registrations</h3>
+
+        <h3>
+          Pending registrations
+        </h3>
+
+
 
         <p class="muted">
+
           A pending account cannot access tutorial marks
           until you approve it.
+
         </p>
+
+
 
         <div class="table-wrap">
 
+
           <table>
 
+
             <thead>
+
               <tr>
-                <th>Student ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Course</th>
-                <th>Action</th>
+
+                <th>
+                  Student ID
+                </th>
+
+                <th>
+                  Name
+                </th>
+
+                <th>
+                  Email
+                </th>
+
+                <th>
+                  Course
+                </th>
+
+                <th>
+                  Action
+                </th>
+
               </tr>
+
             </thead>
+
+
 
             <tbody id="pendingStudentsBody"></tbody>
 
+
           </table>
 
+
         </div>
+
 
       </article>
 
 
+
+      <!-- =================================================
+           ADMIN TOOLS GRID
+      ================================================== -->
+
       <div class="grid two">
 
+
+
         <!-- CREATE APPROVED STUDENT -->
+
         <article class="card">
 
-          <h3>Create approved student account</h3>
+
+          <h3>
+            Create approved student account
+          </h3>
+
+
 
           <p class="muted">
+
             Creates an approved account and sends email-verification
             and password-setup/reset emails.
+
           </p>
+
+
 
           <form id="adminCreateStudentForm">
 
+
             <label>
+
               Student ID
-              <input id="adminStudentId" required />
+
+              <input
+                id="adminStudentId"
+                required
+              />
+
             </label>
 
+
+
             <label>
+
               Name
-              <input id="adminStudentName" required />
+
+              <input
+                id="adminStudentName"
+                required
+              />
+
             </label>
 
+
+
             <label>
+
               Institutional email
+
               <input
                 id="adminStudentEmail"
                 type="email"
                 required
                 placeholder="name@university.edu.au"
               />
+
             </label>
 
+
+
             <label>
+
               Course
+
               <input
                 id="adminStudentCourse"
                 value="EEE XXXX"
                 required
               />
+
             </label>
 
+
+
             <button type="submit">
-              Create account & send setup email
+
+              Create account &amp; send setup email
+
             </button>
+
 
           </form>
 
-          <p id="adminCreateMessage" class="message"></p>
+
+
+          <p
+            id="adminCreateMessage"
+            class="message"
+          ></p>
+
 
         </article>
 
 
-        <!-- NOTICE -->
+
+        <!-- =================================================
+             PUBLISH NOTICE
+        ================================================== -->
+
         <article class="card">
 
-          <h3>Publish notice</h3>
+
+          <h3>
+            Publish notice
+          </h3>
+
+
 
           <form id="noticeForm">
 
-            <label>
-              Title
-              <input id="noticeTitle" required />
-            </label>
 
             <label>
+
+              Title
+
+              <input
+                id="noticeTitle"
+                required
+              />
+
+            </label>
+
+
+
+            <label>
+
               Message
+
               <textarea
                 id="noticeMessage"
                 rows="5"
                 required
               ></textarea>
+
             </label>
 
+
+
             <button type="submit">
+
               Publish notice
+
             </button>
+
 
           </form>
 
+
         </article>
+
 
       </div>
 
 
-      <!-- MARK IMPORT -->
+
+      <!-- =================================================
+           CSV MARK IMPORT
+      ================================================== -->
+
       <article class="card">
 
-        <h3>Import marks from CSV</h3>
+
+        <h3>
+          Import marks from CSV
+        </h3>
+
+
 
         <p class="muted">
+
           CSV columns:
-          <code>uid,assessment,mark,max,feedback</code>
+
+          <code>
+            uid,assessment,mark,max,feedback
+          </code>
+
         </p>
+
+
 
         <input
           id="csvInput"
@@ -462,70 +967,151 @@ NB: This website is currently a demo version developed for learning and testing 
           accept=".csv,text/csv"
         />
 
+
+
         <button
           id="importCsvBtn"
           type="button"
         >
+
           Import CSV
+
         </button>
 
-        <p id="csvMessage" class="message"></p>
+
+
+        <p
+          id="csvMessage"
+          class="message"
+        ></p>
+
 
       </article>
 
 
-      <!-- ALL STUDENTS -->
+
+      <!-- =================================================
+           ALL STUDENTS
+      ================================================== -->
+
       <article class="card">
 
-        <h3>All students</h3>
+
+        <h3>
+          All students
+        </h3>
+
+
 
         <div class="table-wrap">
 
+
           <table>
 
+
             <thead>
+
               <tr>
-                <th>UID</th>
-                <th>Student ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Course</th>
-                <th>Status</th>
+
+                <th>
+                  UID
+                </th>
+
+                <th>
+                  Student ID
+                </th>
+
+                <th>
+                  Name
+                </th>
+
+                <th>
+                  Email
+                </th>
+
+                <th>
+                  Course
+                </th>
+
+                <th>
+                  Status
+                </th>
+
               </tr>
+
             </thead>
+
+
 
             <tbody id="adminStudentsBody"></tbody>
 
+
           </table>
+
 
         </div>
 
+
       </article>
 
 
-      <!-- NOTICES -->
+
+      <!-- =================================================
+           RECENT NOTICES
+      ================================================== -->
+
       <article class="card">
 
-        <h3>Recent notices</h3>
+
+        <h3>
+          Recent notices
+        </h3>
+
 
         <div id="adminNotices"></div>
 
+
       </article>
 
+
     </section>
+
 
   </main>
 
 
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
   <footer>
+
+
     <p>
+
       Student Portal · Firebase Authentication + Firestore security rules
+
     </p>
+
+
   </footer>
 
 
-  <!-- IMPORTANT: app.js uses ES-module imports -->
-  <script type="module" src="./app.js"></script>
+
+  <!-- =====================================================
+       JAVASCRIPT
+
+       IMPORTANT:
+       app.js uses Firebase ES-module imports.
+  ====================================================== -->
+
+  <script
+    type="module"
+    src="./app.js"
+  ></script>
+
 
 </body>
+
 </html>
